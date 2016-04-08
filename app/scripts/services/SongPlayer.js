@@ -26,18 +26,23 @@
 						SongPlayer.currentTime = currentBuzzObject.getTime();
 					});
 				});
-
+				SongPlayer.setVolume(SongPlayer.currentVolume);
 				SongPlayer.currentSong = song
 		}
 		// Public variables
 		SongPlayer.currentSong = null;
 		SongPlayer.currentAlbum = Fixtures.getAlbum();
 		SongPlayer.currentTime = null;
+		SongPlayer.currentVolume = 80;
 
 		var playSong = function(song){
 			currentBuzzObject.play();
 
 			song.playing = true
+		}
+
+		SongPlayer.setVolume = function(volume) {
+			currentBuzzObject.setVolume(volume);
 		}
 
 		SongPlayer.setCurrentTime = function(time) {
