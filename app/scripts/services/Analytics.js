@@ -10,22 +10,22 @@
 
 			$rootScope.songPlays = [];
 
-			services.songPlays = $rootScope.songPlays;
 
 			services.registerSongPlays = function(songObj){
 				songObj['playedAt'] = new Date();
-				services.songPlays.push(songObj);
-				console.log(services.songPlays)
+				$rootScope.songPlays.push(songObj);
 			};
 
 			services.listSongsPlayed = function(){
 				var songs = [];
 				angular.forEach($rootScope.songPlays, function(song){
-					songs.push(song.title);
+					songs.push({key: song.title, y: 3});
 				});
 				return songs;
+				console.log(songs)
 			};
 
+			console.log($rootScope.songPlays)
 
 			return services;
 
