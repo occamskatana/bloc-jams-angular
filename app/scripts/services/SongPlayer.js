@@ -1,8 +1,11 @@
 (function(){
-	function SongPlayer($rootScope, Fixtures) {
+	function SongPlayer($rootScope, Fixtures, Analytics) {
 		var SongPlayer = {};
 		var currentAlbum = Fixtures.getAlbum();
 		var currentBuzzObject = null;
+		var captureEvent = function(songObj){
+			Analytics.registerSongPlays(songObj);
+		}
 
 		var getSongIndex = function(song){
 			return currentAlbum.songs.indexOf(song)
@@ -58,6 +61,7 @@
 
 					setSong(song);
 					playSong(song);
+					captureEvent(song)
 
 			} else if (SongPlayer.currentSong === song) {
 
@@ -104,6 +108,7 @@
 				var song = currentAlbum.songs[currentSongIndex];
 				setSong(song);
 				playSong(song);
+				captureEvent(song);
 			}
 		}
 
@@ -112,7 +117,7 @@
 	}
 
 	angular
-		.module('blocJams')
-		.factory('SongPlayer', ['$rootScope', 'Fixtures', SongPlayer])
+		.module('blocJams')	
+		.factory('SongPlayer', ['$rootScope', 'Fixtures', 'Analytics', SongPlayer])
 
 })();
